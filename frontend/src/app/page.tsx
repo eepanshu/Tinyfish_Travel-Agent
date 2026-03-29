@@ -18,8 +18,11 @@ export default function Home() {
     setTasks([]);
     setSearchContext(data);
 
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const wsUrl = apiUrl.replace(/^http/, 'ws');
+
     try {
-      const response = await fetch('http://localhost:8000/plan', {
+      const response = await fetch(`${apiUrl}/plan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -30,7 +33,7 @@ export default function Home() {
       const planId = result.id;
       if (!planId) return;
 
-      const ws = new WebSocket(`ws://localhost:8000/ws/${planId}`);
+      const ws = new WebSocket(`${wsUrl}/ws/${planId}`);
 
       ws.onmessage = (event) => {
         const msg = JSON.parse(event.data);

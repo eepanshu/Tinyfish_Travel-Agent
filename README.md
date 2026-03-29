@@ -80,5 +80,20 @@ Built with a **Next.js** frontend and a **FastAPI** backend, TinyFish uses the T
 
 ## 📦 Deployment
 
-Powered by **TinyFish Intelligence** and **Groq**.
-Ready for deployment via Vercel (Frontend) and any ASGI-compatible Python host (Backend).
+### Backend (Render)
+1. **Create a New Web Service** on Render.
+2. Connect your GitHub repository.
+3. Set **Root Directory** to `backend`.
+4. Set **Build Command** to `pip install -r requirements.txt`.
+5. Set **Start Command** to `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+6. Add **Environment Variables**:
+   - `GROQ_API_KEY`: Your Groq API Key.
+   - `TINYFISH_API_KEY`: Your TinyFish API Key.
+
+### Frontend (Vercel)
+1. **Create a New Project** on Vercel.
+2. Connect your GitHub repository.
+3. Set **Root Directory** to `frontend`.
+4. Add **Environment Variable**:
+   - `NEXT_PUBLIC_API_URL`: The URL of your Render backend (e.g., `https://tinyfish-backend.onrender.com`).
+5. **Deploy!**
